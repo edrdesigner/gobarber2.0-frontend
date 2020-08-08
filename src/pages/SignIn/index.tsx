@@ -67,7 +67,6 @@ const SignIn: React.FC = () => {
       <Content>
         <AnimationContainer>
           <img src={logoImg} alt="Logo" />
-
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu logon</h1>
             <Input
@@ -83,12 +82,9 @@ const SignIn: React.FC = () => {
               icon={FiLock}
               autoComplete="password"
             />
-
             <Button type="submit">Entrar</Button>
-
             <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
-
           <Link to="/signup">
             <FiLogIn /> Criar conta
           </Link>
