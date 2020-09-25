@@ -88,7 +88,7 @@ const Profile: React.FC = () => {
             'Suas informações do perfil foram atualizadas com sucesso',
         });
 
-        history.push('/');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -150,7 +150,12 @@ const Profile: React.FC = () => {
             />
             <label htmlFor="avatar">
               <FiCamera />
-              <input type="file" id="avatar" onChange={handleAvatarChange} />
+              <input
+                data-testid="input-file"
+                type="file"
+                id="avatar"
+                onChange={handleAvatarChange}
+              />
             </label>
           </AvatarInput>
           <h1>Meu perfil</h1>
@@ -170,14 +175,12 @@ const Profile: React.FC = () => {
             placeholder="Nova senha"
             icon={FiLock}
           />
-
           <Input
             name="password_confirmation"
             type="password"
-            placeholder="Confirmar nova senha"
+            placeholder="Confirmar senha"
             icon={FiLock}
           />
-
           <Button type="submit">Confirmar mudanças</Button>
         </Form>
       </Content>

@@ -33,7 +33,7 @@ const ResetPassword: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          password: Yup.string().required('Senha obrigatória'),
+          password: Yup.string().required('Senha é obrigatória'),
           password_confirmation: Yup.string().oneOf(
             [Yup.ref('password'), null],
             'Confirmação incorreta',
@@ -43,8 +43,7 @@ const ResetPassword: React.FC = () => {
         await schema.validate(data, { abortEarly: false });
 
         const { password, password_confirmation } = data;
-
-        const token = location.search.replace('?token=', '');
+        const token = new URLSearchParams(location.search).get('token');
 
         if (!token) {
           throw new Error();
@@ -56,25 +55,20 @@ const ResetPassword: React.FC = () => {
           token,
         });
 
-        addToast({
-          type: 'success',
-          title: 'Senha alterada',
-          description: 'Sua senha foi alterada com sucesso.',
-        });
-
         history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
+
           formRef.current?.setErrors(errors);
           return;
         }
 
         addToast({
           type: 'error',
-          title: 'Erro ao resetar a senha',
+          title: 'Erro ao resetar senha',
           description:
-            'Ocorreu um erro ao fazer ao resetar sua senha, tente novamente.',
+            'Ocorreu um error ao resetar sua senha, tente novamente.',
         });
       }
     },
